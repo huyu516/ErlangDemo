@@ -1,0 +1,24 @@
+-module(t10).
+
+-compile(export_all).
+
+start() ->
+    spawn(fun() -> loop([]) end).
+
+rpc(Pid, Request) ->
+    Pid ! {self(), Request},
+    receive
+	{Pid, Response} ->
+	    Response
+    end.
+	    
+loop(X) ->
+    receive
+	Any ->
+	    io:format("Received:~p~n",[Any]), 
+	    loop(X)
+    end.
+
+%% Pid = t10:start().
+%% Pid!hello.
+		  

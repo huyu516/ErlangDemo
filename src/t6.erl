@@ -2,8 +2,10 @@
 
 -compile(export_all).
 
-max(N) ->						
+max(N) ->		
     L = for(1, N, fun() -> spawn(fun() -> wait() end) end),
+%% 	L = for(1, N, fun() -> spawn(fun() -> receive die -> void end end) end),
+
     lists:foreach(fun(Pid) -> Pid ! die end, L), 
 	done.
 
