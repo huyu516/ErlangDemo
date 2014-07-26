@@ -1,4 +1,4 @@
--module(t2).
+-module(t02).
 
 -compile(export_all).
 

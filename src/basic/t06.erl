@@ -1,4 +1,4 @@
--module(t6).
+-module(t06).
 
 -compile(export_all).
 
@@ -10,7 +10,8 @@ max(N) ->
 	done.
 
 wait() ->
-    receive die -> void
+    receive 
+		die -> void
     end.
 
 for(N, N, F) -> [F()];

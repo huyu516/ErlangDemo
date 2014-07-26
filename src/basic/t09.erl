@@ -1,4 +1,4 @@
--module(t9).
+-module(t09).
 
 -compile(export_all).
 
@@ -15,5 +15,5 @@ tick(Time, Fun) ->
 	    tick(Time, Fun)
     end.
 
-%% t9:start(1000, fun() -> io:format("hello world") end).
-%% t9:stop().
+%% t09:start(1000, fun() -> io:format("hello world") end).
+%% t09:stop().

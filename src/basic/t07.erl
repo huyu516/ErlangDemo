@@ -1,7 +1,6 @@
--module(t7).
+-module(t07).
 
 -compile(export_all).
-
 
 priority_receive() ->
     receive

@@ -2,10 +2,9 @@
 
 -compile(export_all).
 
-%% 创建了一个监视Pid死亡的进程
 on_exit(Pid, Fun) ->
     spawn(fun() -> 
-			  process_flag(trap_exit, true),   %% 变为系统进程，可以捕获退出信号
+			  process_flag(trap_exit, true),  
 			  link(Pid),                     
 			  receive
 			      {'EXIT', Pid, Why} ->      

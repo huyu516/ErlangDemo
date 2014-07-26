@@ -1,4 +1,4 @@
--module(t8).
+-module(t08).
 
 -export([start/2, cancel/1]).
 
@@ -13,5 +13,5 @@ timer(Time, Fun) ->
 	    Fun()
     end.
 
-%% Pid = t8:start(5000, fun() -> io:format("hello world") end).
-%% t8:cancel(Pid).cancel
+%% Pid = t08:start(5000, fun() -> io:format("hello world") end).
+%% t08:cancel(Pid).cancel
