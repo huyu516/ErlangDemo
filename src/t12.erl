@@ -1,20 +1,23 @@
+
 -module(t12).
 
 -compile(export_all).
 
-rpc(Pid, M, F, A) ->                               %% use remote Pid to execute function        
-    Pid ! {rpc, self(), M, F, A},               
-    receive
-		{Pid, Response} ->
-		    Response
-    end.
+%%  TableId = ets:new(storage, [set, private]).
+%%  ets:insert(TableId, {u1, tom}).
+%%  ets:lookup(TableId, u1).
+%%  ets:delete(TableId).
 
-start(Node) ->							    					
-    spawn(Node, fun() -> loop() end).                %% start in remote and get Pid
+%% ?MODULE
+open() ->
+    case dets:open_file(mydata, [{file,"mydata.dets"}]) of
+        {ok,    mydata} ->  true;
+        {error, Reason} ->  exit(Reason)
+	end.
 
-loop() ->									 
-    receive
-		{rpc, Pid, M, F, A} ->
-		    Pid ! {self(), (catch apply(M, F, A))},   %% execute function
-		    loop()
-    end.
+%%  dets:insert(mydata, {u1, tom}).
+%%  dets:lookup(mydata, u1).
+%% 	dets:close(mydata).
+
+
+

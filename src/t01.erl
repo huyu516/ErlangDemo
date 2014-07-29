@@ -7,13 +7,8 @@
 
 %% Mult = fun(T) -> ( fun(N) -> N * T end ) end.
 
-%% MakeTest = fun(L) -> ( fun(X) -> lists:member(X, L) end) end. 
-%% IsFruit = MakeTest([apple, orange]).
-%% lists:filter(IsFruit, [blue, yellow, apple]).
-
-for(Max, Max, Fun) -> [Fun(Max)];
+for(Max, Max, Fun) -> [Fun(Max)];   
 for(I, Max, Fun)   -> [Fun(I) | for(I+1, Max, Fun)].
-%% t1:for(1, 10, fun(X) -> X end).
 
 sum([T|H]) -> T + sum(H);
 sum([]) -> 0.
@@ -31,6 +26,10 @@ total(L) -> sum([cost(What) * N || {What, N} <- L]).
 %% total([]) -> 0.    
 
 %% t1:total([{orange, 2}, {apple, 5}, {pears, 10}]). 
+
+					
+
+
 
 
 

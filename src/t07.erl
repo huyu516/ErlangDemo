@@ -2,11 +2,18 @@
 
 -compile(export_all).
 
-priority_receive() ->
+rpc(Pid, M, F, A) ->                                
+    Pid ! {rpc, self(), M, F, A},               
     receive
-		{alarm, X} -> {alarm, X}
-	after 0 ->
-		receive
-		    Any -> Any
-		end
+		{Pid, Response} -> Response
+    end.
+
+start(Node) ->							    					
+    spawn(Node, fun() -> loop() end).                
+
+loop() ->									 
+    receive
+		{rpc, Pid, M, F, A} ->
+		    Pid ! {self(), (catch apply(M, F, A))},   
+		    loop()
     end.

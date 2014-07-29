@@ -1,17 +1,27 @@
 -module(t08).
 
--export([start/2, cancel/1]).
+-compile(export_all).
 
-start(Time, Fun) -> spawn(fun() -> timer(Time, Fun) end).
+start() -> register(kvs, spawn(fun() -> loop() end)).
 
-cancel(Pid) -> Pid ! cancel.
+store(Key, Value) -> rpc({store, Key, Value}).
 
-timer(Time, Fun) ->
+lookup(Key) -> rpc({lookup, Key}).
+
+rpc(Q) ->                            
+    kvs ! {self(), Q},
     receive
-		cancel -> void
-    after Time ->
-	    Fun()
+		{kvs, Reply} -> Reply
     end.
 
-%% Pid = t08:start(5000, fun() -> io:format("hello world") end).
-%% t08:cancel(Pid).cancel
+loop() ->
+    receive
+		{From, {store, Key, Value}} ->  
+		    put(Key, {ok, Value}),      
+		    From ! {kvs, true},        
+		    loop();                     
+		{From, {lookup, Key}} ->
+		    From ! {kvs, get(Key)},
+		    loop()
+    end.
+
